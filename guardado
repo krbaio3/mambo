@@ -1,0 +1,12 @@
+Perfecto. Me lo apunto para más adelante. 
+
+Como te he dicho antes, tengo planteada una arquitectura basada en contenedores. 
+
+la parte de base de datos, serian dos bases de datos distintas, una postgreSQL y otra MongoDB, ambas con una instancia de redis distinta y dockerizada. El ciclo de vida para estas, sería con Jenkins.
+
+La parte backend, seria un nestJS con sistema de colas rabbitMq, sobre PM2 dockerizado con red distinta. El ciclo de vida tambien sería con jenkins.
+
+El middle, tendríamos Gateway Kong para aplicar políticas de API, autenticación adicional si es necesario, y plugins configurados (como limitación de tasa, transformación de solicitudes, etc.) así como enrutado de la solicitud al servicio backend adecuado. Authelia para la autenticación y autorización, un NGINX como proxy inverso. Esta parte, el ciclo de CICD sería por su propia configuracion en ficheros con el control de version. Es decir, para cada fichero de configuración habria uno de develop, test y produccion.
+
+La parte frontend, serian microfronts en Angular sobre servidor nginx. El ciclo de vida sería con jenkins.
+
