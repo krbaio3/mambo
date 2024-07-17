@@ -1,23 +1,15 @@
-version: '3.7'
-
 networks:
   jenkins:
-    external: true
-
+    driver: bridge
 services:
   jenkins:
-    image: jenkins/jenkins:lts
-    container_name: jenkins
-    networks:
-      - jenkins
+    image: jenkins/jenkins:lts-jdk17
     ports:
       - "0.0.0.0:8080:8080"
-      - "0.0.0.1:8080:8080"
-      - "0.0.0.0:50000:50000"
     volumes:
       - jenkins_home:/var/jenkins_home
-    environment:
-      - JENKINS_OPTS=--prefix=/jenkins
-
+  ssh-agent:
+    image: jenkins/ssh-agent
 volumes:
   jenkins_home:
+
